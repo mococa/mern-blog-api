@@ -8,7 +8,7 @@ import cors from "cors";
 
 export const express_config = (app) => {
   let ip;
-  const { PORT } = process.env || 3000;
+  const { PORT } = process.env;
   app.use(express.json());
   app.use(ipMiddleware);
   app.use(function (req, res, next) {
@@ -25,8 +25,8 @@ export const express_config = (app) => {
   );
   app.use(cookieParser());
   app.use(router);
-  app.listen(PORT, () => {
-    console.log(`App running 🚀 on port ${PORT}`);
+  app.listen(PORT || 3000, () => {
+    console.log(`App running 🚀 on port ${PORT || 3000}`);
     connection().then(() => {
       console.log("Database connected");
     });

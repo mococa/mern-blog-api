@@ -12,7 +12,7 @@ export const cors_origin = (ip) => (origin, callback) => {
     const now = new Date().toLocaleTimeString("pt-BR", {
       timeZone: "America/Sao_Paulo",
     });
-    if (!ip.startsWith("3")) console.log(`${now} - new request from ${ip}`);
+    if (ip && !ip.startsWith("3")) console.log(`${now} - new request from ${ip}`);
   }
   return callback(null, passed);
 };
