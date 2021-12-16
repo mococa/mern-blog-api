@@ -9,4 +9,5 @@ export const POST_SUBJECTS = [
   "Bash",
   "Python",
   "DevOps",
+  "GIT",
 ];

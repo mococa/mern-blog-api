@@ -40,7 +40,9 @@ export default class Post {
     };
   }
   static async paginate({ page = 0, maxPerPage = 15, tag = null }) {
-    return PostModel.find(...(tag && { tags: { $in: tag } }))
+    //...(tag && { tags: { $in: tag } })
+    return PostModel.find()
+      .populate("author", ["name", "email", "profilePicture", "username"])
       .skip(page * maxPerPage)
       .limit(maxPerPage)
       .lean();
