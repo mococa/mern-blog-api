@@ -9,7 +9,8 @@ import cors from "cors";
 export const express_config = (app) => {
   let ip;
   const { PORT } = process.env;
-  app.use(express.json());
+  app.use(cookieParser());
+  app.use(express.json({ limit: "5mb" }));
   app.use(ipMiddleware);
   app.use(function (req, res, next) {
     ip = req.clientIp;
@@ -20,10 +21,11 @@ export const express_config = (app) => {
       origin: cors_origin(ip),
       optionsSuccessStatus: 200,
       credentials: true,
+      secure: false,
+      httpOnly: false,
       sameSite: "none",
     })
   );
-  app.use(cookieParser());
   app.use(router);
   app.listen(PORT || 3000, () => {
     console.log(`App running 🚀 on port ${PORT || 3000}`);

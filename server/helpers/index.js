@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 const error_model = (error) => {
   return `--- ${new Date().toLocaleTimeString("pt-BR", {
     timeZone: "America/Sao_Paulo",
@@ -29,4 +30,15 @@ export const error_handler = (error, res) => {
 };
 export const capitalize = (word) => {
   return word[0].toUpperCase() + word.slice(1);
+};
+export const getJWT = (jwt_token) => {
+  return new Promise((resolve, reject) => {
+    if (!jwt_token) reject("JWT indefinido");
+    jwt.verify(jwt_token, process.env.JWT_SECRET, (err, decoded_token) => {
+      if (err || !decoded_token) {
+        reject("JWT inválido");
+      }
+      resolve(decoded_token);
+    });
+  });
 };

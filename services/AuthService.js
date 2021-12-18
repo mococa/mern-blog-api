@@ -6,7 +6,7 @@ export default class AuthService {
     return await bcrypt.hash(password, salt);
   }
   static async comparePassword(password, hashedPassword) {
-    if (!password) return false;
+    if (!password || !hashedPassword) return false;
     return await bcrypt.compare(password, hashedPassword);
   }
 }

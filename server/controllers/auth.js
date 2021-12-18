@@ -1,7 +1,21 @@
 import { UserModel } from "../../models/User.js";
 import AuthService from "../../services/AuthService.js";
 import jwt from "jsonwebtoken";
+import { getJWT } from "../helpers/index.js";
+import { Image } from "../../services/PhotoUpload.js";
 export default class Auth {
+  static async byJWT(jwt) {
+    if (!jwt)
+      throw {
+        message: "JWT not provided",
+      };
+    const { id } = await getJWT(jwt);
+    if (!id)
+      throw {
+        message: "ID could not be extracted from JWT",
+      };
+    return await UserModel.findById(id, { password: 0 }).lean();
+  }
   static async signUp({
     username,
     name,
@@ -10,6 +24,11 @@ export default class Auth {
     passwordConfirmation,
     profilePicture,
   }) {
+    if (!email) {
+      throw {
+        message: "Please, enter a valid email",
+      };
+    }
     if (!password) {
       throw {
         message: "Please, enter a password at least 6 characters long",
@@ -29,13 +48,32 @@ export default class Auth {
         message: "Please, provide a stronger password",
       };
     }
-    await UserModel.create({ username, name, email, password, profilePicture });
+    const user = await UserModel.findOne({ email });
+    console.log({ email });
+    if (user) {
+      throw {
+        message: "E-mail already in use",
+      };
+    }
+    const picture = profilePicture ? await Image.upload(profilePicture) : null;
+    await UserModel.create({
+      username,
+      name,
+      email,
+      password,
+      ...(picture && { profilePicture: picture }),
+    });
   }
   static async login({ username, password }) {
+    console.log({ username, password });
     const user = await UserModel.findOne({ username }).lean();
-    if (!user || !AuthService.comparePassword(password, user.password)) {
+    const samePassword = await AuthService.comparePassword(
+      password,
+      user?.password
+    );
+    if (!user || !samePassword) {
       throw {
-        message: "Usuário não encontrado",
+        message: "User not found",
         status: 404,
       };
     }
@@ -44,7 +82,7 @@ export default class Auth {
     });
     const cookie_settings = {
       httpOnly: false,
-      //secure: true, //! Postman cannot read it!
+      secure: true, //! Postman cannot read it!
       maxAge: 60 * 1000,
       sameSite: "none",
       ...(process.env.NODE_ENV === "production"

@@ -11,3 +11,4 @@ export const POST_SUBJECTS = [
   "DevOps",
   "GIT",
 ];
+export const POST_REACTIONS = ["like", "love", "grr", "haha", "wow", "sad"];

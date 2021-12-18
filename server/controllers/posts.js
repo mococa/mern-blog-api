@@ -1,5 +1,7 @@
+import { POST_REACTIONS } from "../../constants.js";
 import { CommentModel } from "../../models/Comment.js";
 import { PostModel } from "../../models/Post.js";
+import { Reaction } from "./reactions.js";
 
 export default class Post {
   static async create({ title, content, tags = [], subject }, user_id) {
@@ -32,10 +34,14 @@ export default class Post {
     const comments = await CommentModel.find({ post: post._id })
       .populate("author", ["name", "email", "profilePicture", "username"])
       .lean();
+
+    const reactions = await Reaction.getInPost({ post: post._id }).lean();
+
     return {
       posts: {
         ...post,
         comments,
+        reactions,
       },
     };
   }

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema, model, SchemaTypes } = mongoose;
 import slugify from "slugify";
-import { POST_SUBJECTS } from "../constants.js";
+import { POST_SUBJECTS, POST_REACTIONS } from "../constants.js";
 const PostSchema = new Schema(
   {
     author: {
