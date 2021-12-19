@@ -20,9 +20,13 @@ export default class Post {
       };
     }
     const post = await (slug
-      ? PostModel.findOne({ slug }).populate("author", ["name", "email", "profilePicture", "username"]).lean()
+      ? PostModel.findOne({ slug })
+          .populate("author", ["name", "email", "profilePicture", "username"])
+          .lean()
       : id
-      ? PostModel.findById(id).populate("author", ["name", "email", "profilePicture", "username"]).lean()
+      ? PostModel.findById(id)
+          .populate("author", ["name", "email", "profilePicture", "username"])
+          .lean()
       : null);
 
     if (!post) {
@@ -47,10 +51,12 @@ export default class Post {
   }
   static async paginate({ page = 0, maxPerPage = 15, tag = null }) {
     //...(tag && { tags: { $in: tag } })
-    return PostModel.find()
-      .populate("author", ["name", "email", "profilePicture", "username"])
+    const query = tag && tag !== "All" ? { tags: { $in: [tag] } } : {};
+    return PostModel.find(query)
+      .sort({ _id: -1 })
       .skip(page * maxPerPage)
       .limit(maxPerPage)
+      .populate("author", ["name", "profilePicture", "username"])
       .lean();
   }
 }
