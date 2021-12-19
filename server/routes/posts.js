@@ -8,8 +8,8 @@ const route = posts_route;
 
 route.get("/", async (req, res) => {
   try {
-    const posts = await Post.load(req.query);
-    return res.json(posts);
+    const post = await Post.load(req.query);
+    return res.json(post);
   } catch (err) {
     return error_handler(err, res);
   }

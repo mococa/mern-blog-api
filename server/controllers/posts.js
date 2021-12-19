@@ -35,7 +35,7 @@ export default class Post {
       .populate("author", ["name", "email", "profilePicture", "username"])
       .lean();
 
-    const reactions = await Reaction.getInPost({ post: post._id }).lean();
+    const reactions = await Reaction.getInPost({ post: post._id });
 
     return {
       posts: {
