@@ -50,7 +50,6 @@ export default class Post {
     };
   }
   static async paginate({ page = 0, maxPerPage = 15, tag = null }) {
-    //...(tag && { tags: { $in: tag } })
     const query = tag && tag !== "All" ? { tags: { $in: [tag] } } : {};
     return PostModel.find(query)
       .sort({ _id: -1 })
