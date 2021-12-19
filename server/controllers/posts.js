@@ -1,10 +1,17 @@
 import { POST_REACTIONS } from "../../constants.js";
 import { CommentModel } from "../../models/Comment.js";
 import { PostModel } from "../../models/Post.js";
+import { UserModel } from "../../models/User.js";
 import { Reaction } from "./reactions.js";
 
 export default class Post {
   static async create({ title, content, tags = [], subject }, user_id) {
+    const author = await UserModel.findById(user_id);
+    if (!author?.admin)
+      throw {
+        message: "You do not have permission for this",
+        status: 401,
+      };
     return await PostModel.create({
       title,
       content,
