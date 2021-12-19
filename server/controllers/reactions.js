@@ -6,7 +6,6 @@ export class Reaction {
     const reactions = await ReactionModel.find({
       post: mongoose.Types.ObjectId(post),
     });
-    console.log({ reactions });
     const reactions_votes = POST_REACTIONS.map((reaction) => ({
       [reaction]: (reactions || []).filter((el) => el.reaction === reaction)
         .length,

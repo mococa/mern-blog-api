@@ -49,7 +49,6 @@ export default class Auth {
       };
     }
     const user = await UserModel.findOne({ email });
-    console.log({ email });
     if (user) {
       throw {
         message: "E-mail already in use",
@@ -65,7 +64,6 @@ export default class Auth {
     });
   }
   static async login({ username, password }) {
-    console.log({ username, password });
     const user = await UserModel.findOne({ username }).lean();
     const samePassword = await AuthService.comparePassword(
       password,
