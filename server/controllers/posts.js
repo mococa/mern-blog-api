@@ -20,9 +20,9 @@ export default class Post {
       };
     }
     const post = await (slug
-      ? PostModel.findOne({ slug }).lean()
+      ? PostModel.findOne({ slug }).populate("author", ["name", "email", "profilePicture", "username"]).lean()
       : id
-      ? PostModel.findById(id).lean()
+      ? PostModel.findById(id).populate("author", ["name", "email", "profilePicture", "username"]).lean()
       : null);
 
     if (!post) {
