@@ -78,12 +78,12 @@ export default class Auth {
       };
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "60s",
+      expiresIn: "1h",
     });
     const cookie_settings = {
       httpOnly: false,
       secure: true, //! Postman cannot read it!
-      maxAge: 60 * 1000,
+      maxAge: 60 * 60 * 1000,
       sameSite: "none",
       ...(process.env.NODE_ENV === "production"
         ? { domain: process.env.DOMAIN }
