@@ -1,6 +1,22 @@
-# MERN Blog  Example
+# MERN Blog Example
 
-I made this to train a little more UI designing, CORS, Image upload services, Context API, Mongo, Cookies, Styled-Components and Hashing passwords, cause I was feeling a little awkward with them. Managed to solid up the knowledge and understand better the Stack.
+I made this to train a little more UI designing, responsive UI, CORS, Image upload services, Context API, Mongo, Cookies, Styled-Components and Hashing passwords, cause I was feeling a little awkward with them. Managed to solid up the knowledge and understand better the Stack.
+
+Also, I hosted it all for free on Repl.it and Freenom. Had issues with Cloudflare, so no more cloudflare. Probably their new UI lol.
+
+---
+You can check the demo here:
+
+https://blog.mococa.tk/
+
+<details>
+  <summary>Other repos used:</summary>
+
+  > https://github.com/mococa/mern-blog-cms
+
+  > https://github.com/mococa/mern-blog-frontend
+
+</details>
 
 ### Cookies
 
@@ -23,7 +39,7 @@ Managed to create my own Toastr notifier with it. I created a custom toastr comp
 Like this:
 
 ```js
-setState((oldState) => changeState(oldState))
+setState((oldState) => changeState(oldState));
 ```
 
 Also used context API to store the blog posts, authentication info and theming
