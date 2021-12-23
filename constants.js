@@ -12,3 +12,4 @@ export const POST_SUBJECTS = [
   "GIT",
 ];
 export const POST_REACTIONS = ["like", "love", "grr", "haha", "wow", "sad"];
+const test = "test";
