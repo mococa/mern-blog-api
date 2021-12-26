@@ -1,4 +1,7 @@
 import superagent from "superagent";
+/**
+ * Uploads image and returns its url
+ */
 export class Image {
   static async upload(base64) {
     const file = base64.split(";base64,").pop();

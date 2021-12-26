@@ -5,7 +5,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "sh ./deploy.sh \"$(sh ./get-env \"SID\")\" \"$(sh ./get-env \"REPL_ID\")\" \"$(sh ./get-env \"REPLIT_API\")\""
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
