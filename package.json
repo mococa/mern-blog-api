@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "deploy": "sh ./deploy.sh \"$(sh ./get-env \"SID\")\" \"$(sh ./get-env \"REPL_ID\")\" \"$(sh ./get-env \"REPLIT_API\")\""
+    "deploy": "sh ./deploy.sh"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
